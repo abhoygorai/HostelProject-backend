@@ -3,10 +3,7 @@ const bcrypt = require("bcrypt");
 const Profile = require("../../db/models/Profile");
 
 const login = async (req, res) => {
-    const { eid, password } = req.body;
-  console.log(req.body);
-  // const eid = req.body.eid;
-  // const password = req.body.password;
+  const { eid, password } = req.body;
 
   try {
     const user = await Profile.findOne({ eid });
