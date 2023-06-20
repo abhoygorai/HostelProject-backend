@@ -16,10 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
 app.use(
-  cors({
-    origin: "http://localhost:54998/",
-    methods: ["GET", "POST"],
-  })
+  cors()
 );
 
 router.use("/auth", authRoutes);
