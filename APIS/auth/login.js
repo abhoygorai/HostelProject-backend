@@ -19,6 +19,7 @@ const login = async (req, res) => {
     }
 
     res.json({
+      _id: user._id,
       eid: user.eid,
       name: user.name,
       role: user.role,
