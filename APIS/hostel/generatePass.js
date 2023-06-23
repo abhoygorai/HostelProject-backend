@@ -1,6 +1,5 @@
-const express = require("express");
-
 const Pass = require("../../db/models/Pass");
+const date = require("../../utils/date")
 
 const generatePass = async (req, res) => {
   const uid = req.body.uid;
@@ -9,7 +8,7 @@ const generatePass = async (req, res) => {
   try {
     const existingPass = await Pass.findOne({ uid, outTime });
     if (existingPass)
-      return res.status(409).json()({ message: "Pass already exist" });
+      return res.status(409).json({ message: "Pass already exist" });
     else {
       const newPass = new Pass({
         name: req.body.name,
@@ -25,6 +24,7 @@ const generatePass = async (req, res) => {
         outTime: req.body.outTime,
         inTime: req.body.inTime,
         warden: req.body.warden,
+        createdOn: await date(),
       });
 
       await newPass.save().then(() => {

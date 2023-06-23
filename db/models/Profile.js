@@ -7,4 +7,4 @@ const profileSchema = new mongoose.Schema({
   role: String,
 });
 
-module.exports = mongoose.model('Profile', profileSchema);
+module.exports = mongoose.model('profile', profileSchema);

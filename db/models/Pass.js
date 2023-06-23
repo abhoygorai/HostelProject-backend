@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const profile = require("./Profile")
 
 const passSchema = new mongoose.Schema({
   name: String,
@@ -13,7 +14,8 @@ const passSchema = new mongoose.Schema({
   place: String,
   outTime: String,
   inTime: String,
-  warden: { type: mongoose.Schema.Types.ObjectId, ref: 'Profiles' },
+  warden: { type: mongoose.Schema.Types.ObjectId, ref: profile },
+  createdOn: String,
 });
 
-module.exports = mongoose.model("GeneratedPass", passSchema);
+module.exports = mongoose.model("generatedpass", passSchema);
