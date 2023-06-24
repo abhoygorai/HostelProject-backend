@@ -7,8 +7,7 @@ const getStudentDetails = async (req, res) => {
 
   try {
     const student = await Students.findOne({ uid });
-    if (!student)
-      return res.status(404).json()({ message: "Student not found" });
+    if (!student) return res.status(404).json({ message: "Student not found" });
     else
       res.status(200).json({
         name: student.name,
