@@ -11,7 +11,7 @@ const fufu = async (req, res) => {
       name: "Naimish Mishra",
       uid: "21BCG1018",
       mobileNo: "5689231245",
-      gurdianNo: "1245785623",
+      guardianNo: "1245785623",
       hostelDetails: {
         hostelName: "Govind-B",
         roomNo: 301,

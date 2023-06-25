@@ -14,7 +14,7 @@ const generatePass = async (req, res) => {
         name: req.body.name,
         uid: req.body.uid,
         mobileNo: req.body.mobileNo,
-        gurdianNo: req.body.gurdianNo,
+        guardianNo: req.body.guardianNo,
         hostelDetails: {
           hostelName: req.body.hostelDetails.hostelName,
           roomNo: req.body.hostelDetails.roomNo,

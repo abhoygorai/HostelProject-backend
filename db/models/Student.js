@@ -4,7 +4,7 @@ const studentDetails = new mongoose.Schema({
   name: String,
   uid: String,
   mobileNo: String,
-  gurdianNo: String,
+  guardianNo: String,
   hostelDetails: {
     hostelName: String,
     roomNo: Number,

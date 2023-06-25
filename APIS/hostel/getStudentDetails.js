@@ -13,7 +13,7 @@ const getStudentDetails = async (req, res) => {
         name: student.name,
         uid: student.uid,
         mobileNo: student.mobileNo,
-        gurdianNo: student.gurdianNo,
+        guardianNo: student.guardianNo,
         hostelDetails: {
           hostelName: student.hostelDetails?.hostelName,
           roomNo: student.hostelDetails?.roomNo,
