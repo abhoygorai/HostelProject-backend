@@ -11,14 +11,12 @@ const passSchema = new mongoose.Schema({
     roomNo: Number,
   },
   category: String,
-  passId: String,
   purpose: String,
   place: String,
   outTime: String,
   inTime: String,
   warden: { type: mongoose.Schema.Types.ObjectId, ref: profile },
-  createdOn: Date,
-  verrified: Boolean,
+  createdOn: String,
 });
 
-module.exports = mongoose.model("generatedpass", passSchema);
+module.exports = mongoose.model("verifiedpass", passSchema);
