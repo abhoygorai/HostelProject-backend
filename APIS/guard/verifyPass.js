@@ -10,7 +10,7 @@ const verifyPass = async (req, res) => {
       select: "name",
       select: "eid",
     });
-    if (!pass) return res.status(404).json()({ message: "No pass is there" });
+    if (!pass) return res.status(404).json({ message: "No pass is there" });
     else {
       const verifiedpass = new Verifiedpass({ pass });
       verifiedpass
