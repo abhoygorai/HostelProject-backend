@@ -7,8 +7,10 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const authRoutes = require("./APIS/auth/index");
-const hostelRoutes = require("./APIS/hostel/index")
+const hostelRoutes = require("./APIS/hostel/index");
 const guardRoutes = require("./APIS/guard/index");
+
+const authorizationMiddleware = require("./middleware/authorization");
 
 const hit = require("./hit");
 
@@ -20,13 +22,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(router);
-app.use(
-  cors()
-);
+app.use(cors());
 
 router.get("/hit", hit); //it is just for manually adding data in the database
 router.use("/auth", authRoutes);
-router.use("/hostel", hostelRoutes);
-router.use("/guard", guardRoutes);
+router.use("/hostel", authorizationMiddleware, hostelRoutes);
+router.use("/guard", authorizationMiddleware, guardRoutes);
 
-app.listen(4000, "0.0.0.0", () => console.log("The server is started in port 4000"));
+app.listen(4000, "0.0.0.0", () =>
+  console.log("The server is started in port 4000")
+);
