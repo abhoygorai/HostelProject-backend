@@ -3,7 +3,7 @@ const express = require("express");
 const Students = require("../../db/models/Student");
 
 const getStudentDetails = async (req, res) => {
-  const uid = req.body.uid;
+  const uid = req.body.uid.toUpperCase();
 
   try {
     const student = await Students.findOne({ uid });

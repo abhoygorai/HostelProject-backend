@@ -1,17 +1,29 @@
-const express = require("express");
-
 const Pass = require("../../db/models/Pass");
-const Profiles = require("../../db/models/Profile");
+const OpenedPass = require("../../db/models/OpenPass");
 
 const getGeneratedPass = async (req, res) => {
-  const uid = req.body.uid;
+  const uid = req.body.uid.toUpperCase();
 
   try {
-    // var pass = await Pass.findOne({ uid });
-    const pass = await Pass.findOne({ uid }).populate({path: "warden", select: "name", select: "eid"});
-    if (!pass) return res.status(404).json({ message: "Pass not generated" });
+    const openPass = await OpenedPass.findOne({ uid })
+      .populate({
+        path: "warden",
+        select: "name",
+      })
+      .populate({
+        path: "openedBy",
+        select: "name",
+      });
+    if (openPass) res.status(200).json(openPass);
     else {
-      res.status(200).json(pass);
+      const pass = await Pass.findOne({ uid }).populate({
+        path: "warden",
+        select: "name",
+      });
+      if (!pass) return res.status(404).json({ message: "Pass not generated" });
+      else {
+        res.status(200).json(pass);
+      }
     }
   } catch (error) {
     console.log(error);

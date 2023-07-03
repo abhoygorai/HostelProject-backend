@@ -1,19 +1,22 @@
 const Pass = require("../../db/models/Pass");
+const OpenPass = require("../../db/models/OpenPass")
 const date = require("../../utils/date");
 
 const generatePass = async (req, res) => {
-  const uid = req.body.uid;
-  // const outTime = req.body.outTime;
+  const uid = req.body.uid.toUpperCase();
 
   try {
-    const existingPass = await Pass.findOne({ uid });
-    console.log("exist", existingPass);
-    if (existingPass)
+    const existingNewPass = await Pass.findOne({ uid });
+    const existingOpenPass = await OpenPass.findOne({ uid });
+
+    if (existingNewPass || existingOpenPass)
       return res.status(409).json({ message: "Pass already exist" });
     else {
       const newPass = new Pass({
         ...req.body,
+        warden: req.body.warden._id,
         createdOn: await date(),
+        status: "n"
       });
 
       await newPass.save().then(() => {

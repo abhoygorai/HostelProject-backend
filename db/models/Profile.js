@@ -1,10 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const profileSchema = require("../Schemas/profileSchema")
 
-const profileSchema = new mongoose.Schema({
-  eid: String,
-  password: String,
-  name: String,
-  role: String,
-});
-
-module.exports = mongoose.model('profile', profileSchema);
+module.exports = mongoose.model("profile", profileSchema);

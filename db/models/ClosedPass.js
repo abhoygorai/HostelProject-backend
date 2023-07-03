@@ -1,4 +1,4 @@
 const mongoose = require("mongoose");
 const passSchema = require("../Schemas/PassSchema");
 
-module.exports = mongoose.model("generatedpass", passSchema);
+module.exports = mongoose.model("closedpass", passSchema);
