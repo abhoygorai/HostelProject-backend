@@ -20,6 +20,7 @@ const verifyPass = async (req, res) => {
     if (pass) {
       const newOpenedPass = new OpenedPass({
         ...pass.toObject(),
+        status: "o",
         openedBy: guard,
         openingDate: await date(),
       });
@@ -47,6 +48,7 @@ const verifyPass = async (req, res) => {
       if (openedPass) {
         const newClosedPass = new ClosedPass({
           ...openedPass.toObject(),
+          status: "c",
           closedBy: guard,
           closingDate: await date(),
         });
