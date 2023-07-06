@@ -1,5 +1,3 @@
-const express = require("express");
-
 const Students = require("../../db/models/Student");
 
 const getStudentDetails = async (req, res) => {
@@ -8,6 +6,10 @@ const getStudentDetails = async (req, res) => {
   try {
     const student = await Students.findOne({ uid });
     if (!student) return res.status(404).json({ message: "Student not found" });
+    if (student.hostelDetails?.hostelName != req.user.hostelName)
+      return res
+        .status(403)
+        .json({ message: `Student is from ${student.hostelDetails.hostelName} hostel` });
     else
       res.status(200).json({
         name: student.name,

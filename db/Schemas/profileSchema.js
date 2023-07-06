@@ -17,6 +17,10 @@ const profileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  hostelName: {
+    type: String,
+    required: false,
+  },
 });
 
-module.exports = profileSchema
+module.exports = profileSchema;

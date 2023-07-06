@@ -14,16 +14,16 @@ const getGeneratedPass = async (req, res) => {
         path: "openedBy",
         select: "name",
       });
-    if (openPass) res.status(200).json(openPass);
-    else {
-      const pass = await Pass.findOne({ uid }).populate({
-        path: "warden",
-        select: "name",
-      });
-      if (!pass) return res.status(404).json({ message: "Pass not generated" });
-      else {
-        res.status(200).json(pass);
-      }
+    const generatedPass = await Pass.findOne({ uid }).populate({
+      path: "warden",
+      select: "name",
+    });
+    if (openPass) {
+      return res.status(200).json(openPass);
+    } else if (generatedPass) {
+      return res.status(200).json(generatedPass);
+    } else {
+      return res.status(404).json({ message: "Pass not generated" });
     }
   } catch (error) {
     console.log(error);

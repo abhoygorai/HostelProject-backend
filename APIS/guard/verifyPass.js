@@ -7,15 +7,9 @@ const verifyPass = async (req, res) => {
   const uid = req.body.uid.toUpperCase();
   const guard = req.body.guard;
 
-  // console.log(uid, guard);
-
   try {
     // Searching in generated passes
-    const pass = await Pass.findOne({ uid }).populate({
-      path: "warden",
-      select: "name",
-      select: "eid",
-    });
+    const pass = await Pass.findOne({ uid });
     // if pass exist transfer it to openedpasses
     if (pass) {
       const newOpenedPass = new OpenedPass({
@@ -38,11 +32,7 @@ const verifyPass = async (req, res) => {
 
       // If pass dont exist in generatedPasses then checking in openedpasses
     } else {
-      const openedPass = await OpenedPass.findOne({ uid }).populate({
-        path: "warden",
-        select: "name",
-        select: "eid",
-      });
+      const openedPass = await OpenedPass.findOne({ uid });
 
       // if exist here transfer it to closedpasses
       if (openedPass) {

@@ -3,17 +3,19 @@ const jwt = require("jsonwebtoken");
 const generateToken = (user) => {
   const token = jwt.sign(
     {
-      eid: user.eid,
-      name: user.name,
-      role: user.role,
+      _id: user?._id,
+      eid: user?.eid,
+      name: user?.name,
+      role: user?.role,
+      hostelName: user?.hostelName,
     },
     process.env.JWT_SECRET,
     {
-        expiresIn: '30m'
+      expiresIn: "30m",
     }
   );
 
   return token.toString();
 };
 
-module.exports = generateToken
+module.exports = generateToken;
