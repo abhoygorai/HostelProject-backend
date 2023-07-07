@@ -1,5 +1,4 @@
 const Pass = require("../../db/models/Pass");
-const OpenedPass = require("../../db/models/OpenPass");
 const ClosedPass = require("../../db/models/ClosedPass");
 const date = require("../../utils/date");
 
@@ -9,27 +8,8 @@ const deletePass = async (req, res) => {
 
   try {
     // Searching in generated passes
-    const openedPass = await OpenedPass.findOne({ uid });
     const generatedPass = await Pass.findOne({ uid });
-    if (openedPass) {
-      const newClosedPass = new ClosedPass({
-        ...openedPass.toObject(),
-        status: "d",
-        closedBy: warden,
-        closingDate: await date(),
-      });
-      newClosedPass
-        .save()
-        .then(async () => {
-          await OpenedPass.deleteOne({ uid }).then(() => {
-            return res.status(200).json({ message: "Pass deleted" });
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-          return res.status(500).json({ message: "Server error" });
-        });
-    } else if (generatedPass) {
+    if (generatedPass) {
       const newClosedPass = new ClosedPass({
         ...generatedPass.toObject(),
         status: "d",
