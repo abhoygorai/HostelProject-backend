@@ -12,7 +12,7 @@ const getPassList = async (req, res) => {
       "hostelDetails.hostelName": user.hostelName,
     });
     console.log(generatedPass);
-    return res.status(200).json({ generatedPass, openPass });
+    return res.status(200).json({ ...generatedPass, ...openPass });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
