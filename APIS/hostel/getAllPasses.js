@@ -18,7 +18,10 @@ const getPassList = async (req, res) => {
       },
     })
       .sort({ closingDate: 1 })
-
+      .populate({
+        path: "warden",
+        select: "name",
+      })
       const slicedPasses = closedPasses.slice(startCount, startCount + bucketSize)
 
     return res.status(200).json({ slicedPasses });
