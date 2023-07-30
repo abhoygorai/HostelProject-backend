@@ -7,7 +7,6 @@ const getPassList = async (req, res) => {
   const startCount = req.body.start;
   const bucketSize = req.body.size;
 
-  
   console.log(fromDate, toDate);
   try {
     const closedPasses = await ClosedPass.find({
@@ -22,7 +21,18 @@ const getPassList = async (req, res) => {
         path: "warden",
         select: "name",
       })
-      const slicedPasses = closedPasses.slice(startCount, startCount + bucketSize)
+      .populate({
+        path: "openedBy",
+        select: "name",
+      })
+      .populate({
+        path: "closedBy",
+        select: "name",
+      });
+    const slicedPasses = closedPasses.slice(
+      startCount,
+      startCount + bucketSize
+    );
 
     return res.status(200).json({ slicedPasses });
   } catch (error) {
